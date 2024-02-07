@@ -1,0 +1,178 @@
+{
+	// Place your snippets for html here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	"Print to quiz game html": {
+		"prefix": "html-game-q",
+		"body": [
+"{% extends 'layout.html' %}",
+"",
+"{% block content %}",
+"<div class='container mt-5'>",
+"    <div class='row'>",
+"        <div class='col-12 mb-3'>",
+"            <h2>Score: {{ session['score'] }}</h2>",
+"        </div>",
+"        <div class='col-12 mb-3'>",
+"            <img src='{{ url_for('static', filename=question['image_url']) }}' alt='Random Image' class='img-fluid'>",
+"        </div>",
+"        <div class='col-12'>",
+"            <form action='{{ url_for('answer') }}' method='post' class='d-grid gap-2'>",
+"                <div class='choices'>",
+"                    {% for choice in question['choices'] %}",
+"                        <button type='submit' name='choice' value='{{ choice.id }}' class='btn btn-primary'>{{ choice.name }}</button>",
+"                    {% endfor %}",
+"                </div>",
+"            </form>",
+"        </div>",
+"    </div>",
+"</div>",
+"{% endblock %}",
+
+	],
+	"description": "To show game quiz html"
+	},
+
+	"Print to quiz high score html": {
+		"prefix": "html-highscore-q",
+		"body": [
+"{% extends 'layout.html' %}",
+"",
+"{% block content %}",
+"<table class='table table-striped'>",
+"    <thead>",
+"        <tr>",
+"            <th>Date Played</th>",
+"            <th>Username</th>",
+"            <th>Score</th>",
+"            <th>Time</th>",
+"        </tr>",
+"    </thead>",
+"    <tbody>",
+"        {% for highscore in highscores %}",
+"        <tr>",
+"            <td>{{ highscore.DatePlayed }}</td>",
+"            <td>{{ highscore.Username }}</td>",
+"            <td>{{ highscore.Score }}</td>",
+"            <td>{{ highscore.Time }} seconds</td>",
+"        </tr>",
+"        {% endfor %}",
+"    </tbody>",
+"</table>",
+"",
+"",
+"{% endblock %}",
+
+	],
+	"description": "To show quiz highscore"
+	},
+
+	"Print to quiz index html": {
+		"prefix": "html-index-q",
+		"body": [
+"{% extends 'layout.html' %}",
+"",
+"{% block title %}Welcome to the Quiz Game!{% endblock %}",
+"",
+"{% block content %}",
+"<div class='vh-100 d-flex justify-content-center align-items-center'>",
+"    <div class='text-center'>",
+"        <h1 class='display-4 mb-4'>Welcome to the Quiz Game!</h1>",
+"        <form action='/start_game' method='post'>",
+"            <div class='form-group'>",
+"                <input type='text' class='form-control' name='player_name' placeholder='Enter your name' required autofocus>",
+"            </div>",
+"            <button type='submit' class='btn btn-lg btn-primary mt-3'>Start Game</button>",
+"        </form>",
+"    </div>",
+"</div>",
+"{% endblock %}",
+
+	],
+	"description": "To show quiz index"
+	},
+
+	"Print to quiz layout html": {
+		"prefix": "html-layout-q",
+		"body": [
+"<!DOCTYPE html>",
+"<html lang='en'>",
+"<head>",
+"    <meta charset='UTF-8'>",
+"    <meta name='viewport' content='width=device-width, initial-scale=1.0'>",
+"    <title>{% block title %}Quiz Game{% endblock %}</title>",
+"    <!-- Bootstrap CSS -->",
+"    <link rel='stylesheet' href='{{ url_for('static', filename='css/bootstrap.min.css') }}'>",
+"    <!-- Custom CSS -->",
+"    <link rel='stylesheet' href='{{ url_for('static', filename='css/style.css') }}'>",
+"</head>",
+"<body>",
+"    <nav class='navbar navbar-expand-lg navbar-light bg-light'>",
+"        <div class='container'>",
+"            <a class='navbar-brand' href='/'>Quiz Game</a>",
+"              <div class='collapse navbar-collapse' id='navbarNav'>",
+"                <a href='/highscores' class='nav-link'>Scores</a>",
+"            </div>",
+"        </div>",
+"    </nav>",
+"",
+"    <div class='container'>",
+"        {% block content %}",
+"        <!-- Content will be injected here -->",
+"        {% endblock %}",
+"    </div>",
+"    <!-- Custom JS -->",
+"    <script src='{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}'></script>",
+"</body>",
+"</html>",
+
+	],
+	"description": "To show quiz layout html"
+	},
+
+	"Print to quiz result html": {
+		"prefix": "html-result-q",
+		"body": [
+"{% extends 'layout.html' %}",
+"",
+"{% block content %}",
+"<div class='results-container text-center'>",
+"    <h2>Game Over, {{ player_name }}!</h2>",
+"    <p>Your final score is: {{ score }} out of 10</p>",
+"    <a href='{{ url_for('index') }}' class='btn btn-primary'>Play Again</a>",
+"</div>",
+"{% endblock %}",
+
+	],
+	"description": "To show quiz result"
+	},
+
+	"Print to quiz score html": {
+		"prefix": "html-score-q",
+		"body": [
+"{% extends 'layout.html' %}",
+"",
+"{% block content %}",
+"<div class='score-container'>",
+"    <h2>Your Score</h2>",
+"    <p>You scored {{ score }} out of 10!</p>",
+"    <a href='{{ url_for('index') }}' class='btn btn-primary'>Play Again</a>",
+"</div>",
+"{% endblock %}",
+
+	],
+	"description": "To show quiz score"
+	},
+
+}
